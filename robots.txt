@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tishan-724.github.io/Aura-X-Tour--2/sitemap.xml
