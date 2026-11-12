@@ -89,363 +89,382 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --lime: #c8ff00;
-    --lime-dark: #a8e000;
-    --bg: #070809;
-    --card: #111213;
-    --border: #1e1f22;
-    --text: #f4f5f6;
-    --muted: #8b8e94;
+    --bg: #090b0f;
+    --surface: #11151b;
+    --surface-2: #161b23;
+    --border: rgba(255,255,255,.08);
+    --text: #eef1f5;
+    --muted: #9aa4b2;
+    --accent: #22c55e;
+    --accent-dark: #16a34a;
+    --accent-soft: rgba(34,197,94,.12);
+    --radius: 16px;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   body {
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: 'Hind Siliguri', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.55;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
 
-  /* Header */
+  /* ---------- Header ---------- */
   header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(7, 8, 9, 0.85);
-    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(9,11,15,.8);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .logo {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    object-fit: cover;
-    display: block;
-  }
-  .brand {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-  }
-  .dl-icon {
-    background: var(--lime);
-  }
-  .dl-icon svg { width: 20px; height: 20px; fill: #000; }
-  .menu-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: #fff;
-    font-size: 18px;
-  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 18px; }
+  .brand img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; }
+  .nav-links { display: none; gap: 28px; font-size: 15px; color: var(--muted); }
+  .nav-links a { text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
 
-  /* Stats */
-  .stats-bar {
-    display: flex;
-    justify-content: space-around;
-    padding: 14px 10px;
-    background: #0c0d0f;
-    border-bottom: 1px solid var(--border);
-    font-size: 12.5px;
-    font-weight: 500;
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+    border-radius: 12px; padding: 14px 26px; font-size: 16px;
+    transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
   }
-  .stat {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .live-dot {
-    width: 7px;
-    height: 7px;
-    background: #ff3b30;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #ff3b30;
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
-  }
+  .btn svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
+  .btn-primary { background: var(--accent); color: #04130a; border: 1px solid var(--accent); }
+  .btn-primary:hover { background: #4ade80; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,197,94,.25); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.16); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm { padding: 9px 16px; font-size: 14.5px; border-radius: 10px; }
+  .btn:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  /* Hero */
-  .hero {
-    padding: 56px 20px 40px;
-    text-align: center;
-    max-width: 780px;
-    margin: 0 auto;
+  /* ---------- Hero ---------- */
+  .hero { position: relative; text-align: center; padding: 64px 0 56px; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; left: 50%; top: -120px; transform: translateX(-50%);
+    width: 760px; height: 520px; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(34,197,94,.16), transparent);
   }
-  .hero h1 {
-    font-size: clamp(32px, 8vw, 54px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-    margin-bottom: 18px;
+  .hero > .wrap { position: relative; }
+  .hero-logo {
+    width: 84px; height: 84px; border-radius: 22px; object-fit: cover;
+    border: 1px solid var(--border); margin: 0 auto 22px; display: block;
+    box-shadow: 0 0 0 6px rgba(34,197,94,.08), 0 16px 40px rgba(0,0,0,.45);
   }
-  .hero h1 .lime {
-    color: var(--lime);
-  }
-  .hero p {
-    font-size: 16px;
-    color: var(--muted);
-    max-width: 500px;
-    margin: 0 auto 36px;
-    font-weight: 500;
-  }
-
-  /* Buttons */
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--lime);
-    color: #000;
-    font-size: 17px;
-    font-weight: 700;
-    padding: 16px 28px;
-    border-radius: 12px;
-    text-decoration: none;
-    width: 100%;
-    max-width: 380px;
-    transition: all 0.2s;
-    margin-bottom: 12px;
-  }
-  .btn-primary:hover {
-    background: #d4ff33;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(200, 255, 0, 0.25);
-  }
-  .btn-primary svg { width: 18px; height: 18px; fill: #000; }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    background: transparent;
-    color: #fff;
-    font-size: 15.5px;
-    font-weight: 600;
-    padding: 15px 24px;
-    border-radius: 12px;
-    border: 1px solid #2a2b2e;
-    text-decoration: none;
-    width: 100%;
-    max-width: 380px;
-    transition: all 0.2s;
-  }
-  .btn-outline:hover {
-    border-color: var(--lime);
-    color: var(--lime);
-  }
-
-  /* Section */
-  .section {
-    padding: 48px 16px;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .section-title {
-    font-size: 22px;
-    font-weight: 700;
-    text-align: center;
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 500;
+    background: var(--accent-soft); color: #86efac; border: 1px solid rgba(34,197,94,.25);
     margin-bottom: 20px;
   }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,.6); } 50% { opacity: .7; box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+  h1 { font-size: clamp(34px, 7.5vw, 60px); line-height: 1.18; font-weight: 700; letter-spacing: -.5px; margin-bottom: 18px; }
+  h1 .accent { color: var(--accent); }
+  .hero-sub { color: var(--muted); font-size: clamp(16px, 2.4vw, 18.5px); max-width: 560px; margin: 0 auto 32px; }
+  .cta-row { display: flex; flex-direction: column; gap: 12px; align-items: stretch; max-width: 360px; margin: 0 auto; }
+  .hero-note { margin-top: 18px; font-size: 13.5px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 36px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--border); padding: 8px 14px; border-radius: 999px;
+  }
+  .chip svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* Tournament Cards */
-  .tournament-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .t-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: border-color 0.2s;
-  }
-  .t-card:hover { border-color: #333; }
-  .t-left .badge {
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 6px;
-  }
-  .badge.live { background: var(--lime); color: #000; }
-  .badge.soon { background: #222; color: #888; }
-  .badge.special { background: #ff9500; color: #000; }
-  .t-left h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .t-left p {
-    font-size: 12.5px;
-    color: var(--muted);
-  }
-  .t-right {
-    text-align: right;
-    font-size: 13px;
-  }
-  .t-right strong { font-weight: 700; }
-  .t-right span { color: #777; font-size: 11.5px; display: block; margin-top: 2px; }
+  /* ---------- Sections ---------- */
+  section.block { padding: 56px 0; }
+  .eyebrow { text-align: center; color: var(--accent); font-size: 13.5px; font-weight: 600; letter-spacing: .4px; margin-bottom: 8px; }
+  h2 { text-align: center; font-size: clamp(26px, 4.5vw, 36px); line-height: 1.3; font-weight: 700; margin-bottom: 36px; letter-spacing: -.3px; }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 40px 16px 32px;
-    color: #555;
-    font-size: 12.5px;
-    border-top: 1px solid var(--border);
+  .grid { display: grid; gap: 14px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; transition: border-color .25s, transform .25s, background .25s;
   }
+  .card:hover { border-color: rgba(34,197,94,.35); background: var(--surface-2); transform: translateY(-2px); }
+  .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: 15.5px; }
+  .icon {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft);
+    display: grid; place-items: center; margin-bottom: 14px;
+  }
+  .icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* Mobile Menu */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 64px;
-    right: 14px;
-    background: #111;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 8px 0;
-    min-width: 170px;
-    z-index: 99;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  /* Steps */
+  .steps { counter-reset: s; display: grid; gap: 14px; }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .step::before {
+    counter-increment: s; content: counter(s, bengali);
+    flex: none; width: 38px; height: 38px; border-radius: 50%;
+    background: var(--accent); color: #04130a; font-weight: 700;
+    display: grid; place-items: center; font-size: 17px; margin-top: 2px;
   }
-  .mobile-menu a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    padding: 11px 18px;
-    font-size: 14.5px;
-    font-weight: 500;
-  }
-  .mobile-menu a:hover { background: #1a1a1a; }
+  .step p { color: var(--text); font-size: 16px; }
+  .step small { display: block; color: var(--muted); font-size: 14px; }
 
-  @media (min-width: 768px) {
-    .hero { padding-top: 80px; }
-    .stats-bar { font-size: 14px; }
+  /* Prose */
+  .prose { max-width: 720px; margin: 0 auto; }
+  .prose h3 { font-size: 20px; margin: 28px 0 8px; }
+  .prose h3:first-child { margin-top: 0; }
+  .prose p { color: var(--muted); font-size: 16.5px; }
+
+  /* FAQ */
+  .faq { max-width: 720px; margin: 0 auto; display: grid; gap: 10px; }
+  details { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; transition: border-color .2s; }
+  details[open] { border-color: rgba(34,197,94,.35); }
+  summary {
+    list-style: none; cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 16.5px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font-size: 24px; line-height: 1; color: var(--accent); transition: transform .2s; flex: none; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { padding: 0 20px 18px; color: var(--muted); font-size: 15.5px; }
+
+  /* Notice */
+  .notice {
+    max-width: 720px; margin: 0 auto; display: flex; gap: 14px;
+    background: rgba(234,179,8,.07); border: 1px solid rgba(234,179,8,.25);
+    border-radius: 14px; padding: 18px 20px; color: #e8d9a0; font-size: 15px;
+  }
+  .notice svg { width: 22px; height: 22px; flex: none; stroke: #eab308; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 3px; }
+  .notice strong { color: #fde68a; display: block; margin-bottom: 2px; }
+
+  /* Final CTA */
+  .final {
+    text-align: center; border-radius: 24px; padding: 48px 22px; border: 1px solid rgba(34,197,94,.25);
+    background: radial-gradient(ellipse at top, rgba(34,197,94,.16), rgba(34,197,94,.03) 65%), var(--surface);
+  }
+  .final h2 { margin-bottom: 12px; }
+  .final p { color: var(--muted); max-width: 480px; margin: 0 auto 26px; }
+
+  footer { border-top: 1px solid var(--border); margin-top: 56px; padding: 32px 0 40px; text-align: center; color: var(--muted); font-size: 14px; }
+  footer .brand { justify-content: center; margin-bottom: 10px; color: var(--text); }
+
+  /* Mobile sticky download */
+  .sticky-cta {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 40;
+    transform: translateY(140%); transition: transform .3s;
+  }
+  .sticky-cta.show { transform: none; }
+  .sticky-cta .btn { width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+
+  @media (min-width: 640px) {
+    .cta-row { flex-direction: row; max-width: none; justify-content: center; }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 820px) {
+    .nav-links { display: flex; }
+    .hero { padding: 96px 0 72px; }
+    section.block { padding: 72px 0; }
+    .sticky-cta { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
 <header role="banner">
-  <div class="logo-wrap">
-    <img class="logo" src="https://i.postimg.cc/FsS2H1bY/IMG-20260920-191424-072.jpg" alt="Aura X Tour লোগো">
-    <div class="brand">Aura X Tour</div>
-  </div>
-  <div class="header-right">
-    <a href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer" class="icon-btn dl-icon" title="ডাউনলোড">
-      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+  <div class="wrap nav">
+    <a href="#home" class="brand">
+      <img src="https://i.postimg.cc/FsS2H1bY/IMG-20260920-191424-072.jpg" alt="Aura X Tour লোগো" width="36" height="36">
+      Aura X Tour
     </a>
-    <button class="icon-btn menu-btn" id="menuBtn" aria-label="মেনু খুলুন">☰</button>
+    <nav class="nav-links" aria-label="প্রধান মেনু">
+      <a href="#about">কেন Aura X Tour</a>
+      <a href="#features">ফিচার</a>
+      <a href="#install">ইনস্টল</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      ডাউনলোড
+    </a>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home">হোম</a>
-  <a href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer">ডাউনলোড</a>
-</div>
+<main id="home">
 
-<div class="stats-bar">
-  <div class="stat"><span class="live-dot"></span> লাইভ</div>
-</div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <img class="hero-logo" src="https://i.postimg.cc/FsS2H1bY/IMG-20260920-191424-072.jpg" alt="Aura X Tour লোগো" width="84" height="84">
+      <div class="live-pill"><span class="live-dot"></span> লাইভ টুর্নামেন্ট চলছে</div>
+      <h1>বাংলাদেশের সেরা<br><span class="accent">ফ্রি ফায়ার টুর্নামেন্ট</span> অ্যাপ</h1>
+      <p class="hero-sub">প্রতিদিন নতুন টুর্নামেন্ট, বিশাল পুরস্কার এবং অসাধারণ গেমিং অভিজ্ঞতা। বাংলাদেশের ফ্রি ফায়ার কমিউনিটিতে যোগ দিন।</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="mainDl" href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          এখনই ডাউনলোড করুন
+        </a>
+        <a class="btn btn-ghost" href="https://tishan-724.github.io/Aura-X-Tour--2/" target="_blank" rel="noopener noreferrer">টুর্নামেন্ট দেখুন →</a>
+      </div>
+      <p class="hero-note">Android APK • সম্পূর্ণ ফ্রি</p>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> সম্পূর্ণ ফ্রি</span>
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> প্রতিদিন নতুন ম্যাচ</span>
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> লাইভ আপডেট</span>
+      </div>
+    </div>
+  </section>
 
-<section class="hero" id="home">
-  <h1>
-    বাংলাদেশের সেরা<br>
-    <span class="lime">ফ্রি ফায়ার টুর্নামেন্ট</span><br>
-    অ্যাপ
-  </h1>
-  <p>
-    প্রতিদিন নতুন টুর্নামেন্ট, বিশাল পুরস্কার এবং অসাধারণ গেমিং অভিজ্ঞতা। বাংলাদেশের সবচেয়ে বড় ফ্রি ফায়ার কমিউনিটিতে যোগ দিন।
-  </p>
+  <!-- Why -->
+  <section class="block" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="eyebrow">কেন আমরা</div>
+      <h2 id="about-title">Aura X Tour কেন সেরা?</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div>
+          <h3>প্রতিদিন নতুন টুর্নামেন্ট</h3>
+          <p>বাংলাদেশের ফ্রি ফায়ার খেলোয়াড়দের জন্য নিয়মিত Free Fire টুর্নামেন্ট।</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
+          <h3>বিশাল পুরস্কার</h3>
+          <p>প্রতিটি টুর্নামেন্টে আকর্ষণীয় পুরস্কার জেতার সুযোগ।</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></div>
+          <h3>বড় কমিউনিটি</h3>
+          <p>সক্রিয় খেলোয়াড়দের সাথে খেলুন এবং নিজেকে প্রমাণ করুন।</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <a href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer" class="btn-primary">
-    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-    এখনই ডাউনলোড করুন
-  </a>
+  <!-- Features -->
+  <section class="block" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="eyebrow">ফিচার</div>
+      <h2 id="features-title">মূল ফিচারসমূহ</h2>
+      <div class="grid cols-3">
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg></div><h3>প্রতিদিন নতুন টুর্নামেন্ট</h3><p>প্রতিদিন নতুন Free Fire টুর্নামেন্ট</p></div>
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M15 7h3a4 4 0 0 1 0 8h-3M9 17H6a4 4 0 0 1 0-8h3M8 12h8"/></svg></div><h3>সহজ রেজিস্ট্রেশন</h3><p>সহজ রেজিস্ট্রেশন ও রুম কোড শেয়ারিং</p></div>
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 13h18M12 8c-2-4-6-4-6-1.5S9 8 12 8Zm0 0c2-4 6-4 6-1.5S15 8 12 8Z"/></svg></div><h3>পুরস্কার ও রিওয়ার্ড</h3><p>আকর্ষণীয় পুরস্কার ও রিওয়ার্ড সিস্টেম</p></div>
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div><h3>কমিউনিটি ও লিডারবোর্ড</h3><p>সক্রিয় কমিউনিটি ও লিডারবোর্ড</p></div>
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21a2 2 0 0 0 4 0"/></svg></div><h3>লাইভ আপডেট</h3><p>লাইভ আপডেট ও নোটিফিকেশন</p></div>
+        <div class="card"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg></div><h3>সম্পূর্ণ ফ্রি</h3><p>সম্পূর্ণ ফ্রি অ্যাপ (কোনো চার্জ নেই)</p></div>
+      </div>
+    </div>
+  </section>
 
-  <a href="https://tishan-724.github.io/Aura-X-Tour--2/" target="_blank" rel="noopener noreferrer" class="btn-outline">
-    টুর্নামেন্ট দেখুন →
-  </a>
-</section>
+  <!-- Install -->
+  <section class="block" id="install" aria-labelledby="install-title">
+    <div class="wrap">
+      <div class="eyebrow">শুরু করুন</div>
+      <h2 id="install-title">ডাউনলোড ও ইনস্টল করার নিয়ম</h2>
+      <div class="card" style="max-width:720px;margin:0 auto;">
+        <div class="steps">
+          <div class="step"><p>উপরের “এখনই ডাউনলোড করুন” বাটনে ক্লিক করে APK ফাইল ডাউনলোড করুন।</p></div>
+          <div class="step"><p>ফোনের Settings &gt; Security বা Apps এ গিয়ে “Unknown sources” বা “Install unknown apps” চালু করুন।</p></div>
+          <div class="step"><p>ডাউনলোড করা APK ফাইলে ক্লিক করে ইনস্টল করুন।</p></div>
+          <div class="step"><p>অ্যাপ খুলে রেজিস্ট্রেশন সম্পন্ন করুন এবং টুর্নামেন্টে যোগ দিন।</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<main>
-<section class="section" id="about" aria-labelledby="about-title">
-  <h2 class="section-title" id="about-title">Aura X Tour কেন সেরা?</h2>
-  <div class="tournament-list">
-    <div class="t-card"><div class="t-left"><h3>প্রতিদিন নতুন টুর্নামেন্ট</h3><p>বাংলাদেশের ফ্রি ফায়ার খেলোয়াড়দের জন্য নিয়মিত Free Fire টুর্নামেন্ট।</p></div></div>
-    <div class="t-card"><div class="t-left"><h3>বিশাল পুরস্কার</h3><p>প্রতিটি টুর্নামেন্টে আকর্ষণীয় পুরস্কার জেতার সুযোগ।</p></div></div>
-    <div class="t-card"><div class="t-left"><h3>বড় কমিউনিটি</h3><p>হাজারো সক্রিয় খেলোয়াড়ের সাথে খেলুন এবং নিজেকে প্রমাণ করুন।</p></div></div>
-  </div>
-</section>
+  <!-- Details -->
+  <section class="block" id="details" aria-labelledby="details-title">
+    <div class="wrap">
+      <div class="eyebrow">বিস্তারিত</div>
+      <h2 id="details-title">Aura X Tour অ্যাপের বিস্তারিত</h2>
+      <div class="prose">
+        <h3>অ্যাপটি কীভাবে কাজ করে?</h3>
+        <p>Aura X Tour বাংলাদেশের খেলোয়াড়দের জন্য তৈরি একটি ফ্রি ফ্রি ফায়ার (Free Fire) টুর্নামেন্ট অ্যাপ। অ্যাপ খুলে প্রতিদিনের নতুন টুর্নামেন্ট দেখুন, রেজিস্ট্রেশন করুন, কাস্টম রুমে যোগ দিন এবং পুরস্কার জেতার সুযোগ নিন। সব কিছু এক জায়গায় সহজভাবে সাজানো।</p>
+        <h3>কেন Aura X Tour ডাউনলোড করবেন?</h3>
+        <p>ফ্রি ফায়ার টুর্নামেন্ট কমিউনিটির অংশ হতে চান? নিয়মিত নতুন ম্যাচ, ন্যায্য খেলা এবং আকর্ষণীয় পুরস্কারের সুযোগ পেতে চাইলে Aura X Tour আপনার জন্য সঠিক পছন্দ। সহজ UI, দ্রুত আপডেট এবং খেলোয়াড়-বান্ধব অভিজ্ঞতা।</p>
+      </div>
+    </div>
+  </section>
 
-<section class="section" id="faq" aria-labelledby="faq-title">
-  <h2 class="section-title" id="faq-title">সচরাচর জিজ্ঞাসা (FAQ)</h2>
-  <div class="tournament-list">
-    <div class="t-card"><div class="t-left"><h3>Aura X Tour কী?</h3><p>বাংলাদেশের খেলোয়াড়দের জন্য একটি ফ্রি ফায়ার (Free Fire) টুর্নামেন্ট অ্যাপ, যেখানে প্রতিদিন নতুন টুর্নামেন্টে অংশ নেওয়া যায়।</p></div></div>
-    <div class="t-card"><div class="t-left"><h3>অ্যাপ কীভাবে ডাউনলোড করব?</h3><p>উপরের "এখনই ডাউনলোড করুন" বাটনে ক্লিক করে APK ডাউনলোড করুন, তারপর ফোনের সেটিংসে অজানা সোর্স থেকে ইনস্টলের অনুমতি দিয়ে ইনস্টল করুন।</p></div></div>
-    <div class="t-card"><div class="t-left"><h3>এখানে কোন গেমের টুর্নামেন্ট হয়?</h3><p>Aura X Tour-এ Free Fire (ফ্রি ফায়ার) গেমের টুর্নামেন্ট আয়োজন করা হয়।</p></div></div>
-  </div>
-</section>
+  <!-- FAQ -->
+  <section class="block" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="eyebrow">প্রশ্নোত্তর</div>
+      <h2 id="faq-title">সচরাচর জিজ্ঞাসা (FAQ)</h2>
+      <div class="faq">
+        <details open>
+          <summary>Aura X Tour কী?</summary>
+          <p>বাংলাদেশের খেলোয়াড়দের জন্য একটি ফ্রি ফায়ার (Free Fire) টুর্নামেন্ট অ্যাপ, যেখানে প্রতিদিন নতুন টুর্নামেন্টে অংশ নেওয়া যায়।</p>
+        </details>
+        <details>
+          <summary>অ্যাপ কীভাবে ডাউনলোড করব?</summary>
+          <p>উপরের "এখনই ডাউনলোড করুন" বাটনে ক্লিক করে APK ডাউনলোড করুন, তারপর ফোনের সেটিংসে অজানা সোর্স থেকে ইনস্টলের অনুমতি দিয়ে ইনস্টল করুন।</p>
+        </details>
+        <details>
+          <summary>এখানে কোন গেমের টুর্নামেন্ট হয়?</summary>
+          <p>Aura X Tour-এ Free Fire (ফ্রি ফায়ার) গেমের টুর্নামেন্ট আয়োজন করা হয়।</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="notice">
+        <svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>
+        <div><strong>গুরুত্বপূর্ণ নোট</strong>শুধুমাত্র অফিসিয়াল সোর্স থেকে APK ডাউনলোড করুন। টুর্নামেন্টে অংশ নেওয়ার সময় নিয়ম মেনে চলুন। যেকোনো সমস্যায় অ্যাপের সাপোর্ট সেকশন ব্যবহার করুন।</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="final">
+        <h2>এখনই যোগ দিন</h2>
+        <p>বাংলাদেশের ফ্রি ফায়ার টুর্নামেন্ট অ্যাপে খেলুন এবং পুরস্কার জিতুন।</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            এখনই ডাউনলোড করুন
+          </a>
+          <a class="btn btn-ghost" href="https://tishan-724.github.io/Aura-X-Tour--2/" target="_blank" rel="noopener noreferrer">টুর্নামেন্ট দেখুন →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
-  © 2026 Aura X Tour • বাংলাদেশের সেরা ফ্রি ফায়ার টুর্নামেন্ট অ্যাপ
+  <div class="wrap">
+    <div class="brand"><img src="https://i.postimg.cc/FsS2H1bY/IMG-20260920-191424-072.jpg" alt="" width="28" height="28" style="width:28px;height:28px">Aura X Tour</div>
+    © 2026 Aura X Tour • বাংলাদেশের সেরা ফ্রি ফায়ার টুর্নামেন্ট অ্যাপ
+  </div>
 </footer>
 
+<div class="sticky-cta" id="stickyCta">
+  <a class="btn btn-primary" href="https://raw.githubusercontent.com/tishan-724/Aura-X-Tour/main/Aura_X_Tour%20(7).apk" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    অ্যাপ ডাউনলোড করুন
+  </a>
+</div>
+
 <script>
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  menuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-  });
-
-  document.addEventListener('click', () => {
-    mobileMenu.style.display = 'none';
-  });
-
-  mobileMenu.addEventListener('click', (e) => e.stopPropagation());
+  // Show the mobile download bar once the hero button scrolls out of view
+  (function () {
+    var bar = document.getElementById('stickyCta');
+    var target = document.getElementById('mainDl');
+    if (!bar || !target || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (e) {
+      bar.classList.toggle('show', !e[0].isIntersecting);
+    }).observe(target);
+  })();
 </script>
-
 </body>
 </html>
